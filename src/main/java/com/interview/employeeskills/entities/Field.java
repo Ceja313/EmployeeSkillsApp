@@ -9,22 +9,18 @@ import javax.persistence.*;
  * @author Jeff Ceja
  */
 @Entity
-@Table(name = "skill")
+@Table(name = "Field")
 @Data
-public class Skill {
+public class Field {
 
     @Id @GeneratedValue(generator="system-uuid")
     @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name="Id", nullable = false, updatable = false, unique = true)
     private String id;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "FieldId", nullable = false, insertable = false, updatable = false)
-    private Field field;
+    @Column(name="name", nullable = false)
+    private String name;
 
-    @Column(name="experience", nullable = false)
-    private String experience;
-
-    @Column(name="summary")
-    private String summary;
+    @Column(name="type", nullable = false)
+    private String type;
 }

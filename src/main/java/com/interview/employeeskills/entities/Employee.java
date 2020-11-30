@@ -2,48 +2,56 @@ package com.interview.employeeskills.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.List;
 
+/**
+ * @author Jeff Ceja
+ */
 @Entity
 @Table(name = "employee")
 @Data
 @JsonIgnoreProperties(ignoreUnknown=true)
 public class Employee {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue(generator="system-uuid")
+    @GenericGenerator(name="system-uuid", strategy = "uuid")
     @Column(name="Id", nullable = false, updatable = false, unique = true)
     private String id;
 
-    @Column(name="firstName")
+    @Column(name = "FirstName", nullable = false)
     private String firstName;
 
-    @Column(name="lastName")
+    @Column(name = "LastName", nullable = false)
     private String lastName;
 
-//    @Column(name="address")
-//    private Address address;
+    @Column(name = "ContactEmail", nullable = true)
+    private String contactEmail;
 
-    @Column(name="companyEmail")
+    @Column(name = "CompanyEmail", nullable = false)
     private String companyEmail;
 
-    @Column(name="birthDate")
+    @Column(name = "BirthDate", nullable = false)
     private String birthDate;
 
-    @Column(name="hiredDate")
+    @Column(name = "HiredDate", nullable = false)
     private String hiredDate;
 
-    @Column(name="role")
+    @Column(name = "Skills", nullable = true)
+    private String skills;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "AddressId", referencedColumnName = "Id",nullable = false)
+    private Address address;
+
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "AssignedToId", nullable = true)
+    private Employee assignedTo;
+
+    @Column(name = "Role", nullable = false)
     private String role;
 
-    @Column(name="businessUnit")
+    @Column(name = "BusinessUnit", nullable = false)
     private String businessUnit;
-
-//    @Column(name="skills")
-//    private List<Skill> skills;
-
-    @Column(name="assignedTo")
-    private String assignedTo;
 }

@@ -7,7 +7,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 /**
  * Custom web security config to override Springs default web configurations.
- * @author jrcej 11/25/2020
+ * @author Jeff Ceja
  */
 @Configuration
 @EnableWebSecurity
@@ -20,6 +20,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .httpBasic()
                 .and()
-                .csrf();
+                .csrf().disable();
     }
 }
